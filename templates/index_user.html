@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Booking - User</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Hotel Booking System</h1>
+        <nav>
+            <ul>
+                <li><a href="#available-bookings">Available Bookings</a></li>
+                <li><a href="#make-booking">Make a Booking</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <!-- Section: Available Bookings -->
+        <section id="available-bookings">
+            <h2>Available Bookings</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Check-in</th>
+                        <th>Check-out</th>
+                        <th>Guests</th>
+                        <th>Type of Room</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if bookings %}
+                        {% for booking in bookings %}
+                        <tr>
+                            <td>{{ booking.name }}</td>
+                            <td>{{ booking.email }}</td>
+                            <td>{{ booking.check_in }}</td>
+                            <td>{{ booking.check_out }}</td>
+                            <td>{{ booking.guests }}</td>
+                            <td>{{ booking.type_of_room }}</td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="3" style="text-align: center;">No bookings available</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Section: Make a Booking -->
+        <section id="make-booking">
+            <h2>Make a Booking</h2>
+            <form action="/book" method="POST">
+                <fieldset>
+                    <legend>Booking Information</legend>
+
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+                    <label for="check_in">Check-in Date:</label>
+                    <input type="date" id="check_in" name="check_in" required>
+
+                    <label for="check_out">Check-out Date:</label>
+                    <input type="date" id="check_out" name="check_out" required>
+
+                    <label for="guests">Number of Guests:</label>
+                    <input type="number" id="guests" name="guests" min="1" placeholder="Enter the number of guests" required>
+
+                    <label for="type_of_room">Type of Room:</label>
+                    <select id="type_of_room" name="type_of_room" required>
+                        <option value="Single">Single</option>
+                        <option value="Double">Double</option>
+                        <option value="Suite">Suite</option>
+                    </select>
+
+                    <button type="submit">Book Now</button>
+                </fieldset>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Hotel Booking System. All rights reserved.</p>
+    </footer>
+</body>
+</html>
